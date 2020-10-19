@@ -1,1 +1,2 @@
-# AI_project_connect4
+# connect4_ai_game_project
+ 
