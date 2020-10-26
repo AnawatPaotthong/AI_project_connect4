@@ -8,8 +8,8 @@ BLACK = (0,0,0)
 RED = (255,0,0)
 YELLOW = (255,255,0)
 
-ROW_COUNT = 6
-COLUMN_COUNT = 7
+ROW_COUNT = 4
+COLUMN_COUNT = 4
 
 def create_board():
 	board = np.zeros((ROW_COUNT,COLUMN_COUNT))
@@ -89,7 +89,7 @@ screen = pygame.display.set_mode(size)
 draw_board(board)
 pygame.display.update()
 
-myfont = pygame.font.SysFont("monospace", 75)
+myfont = pygame.font.SysFont("monospace", 50)
 
 while not game_over:
 
@@ -120,7 +120,7 @@ while not game_over:
 
 					if winning_move(board, 1):
 						label = myfont.render("Player 1 WINS!!", 1, RED)
-						screen.blit(label, (40,10))
+						screen.blit(label, (32, 53))
 						game_over = True
 
 
