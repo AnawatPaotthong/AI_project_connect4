@@ -54,6 +54,7 @@ turn = 0
 
 while not game_over:
   #Ask for player 1 input
+  
   if turn == 0:
     col = int(input("Player 1: make your selection (0-2):"))
 
