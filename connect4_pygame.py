@@ -3,13 +3,21 @@ import pygame
 import sys
 import math
 
+from pygame.draw import circle
+
 BLUE = (0,0,255)
 BLACK = (0,0,0)
 RED = (255,0,0)
 YELLOW = (255,255,0)
+WHITE = (255,255,255)
 
 ROW_COUNT = 4
 COLUMN_COUNT = 4
+DRAW_COUNT = [[0, 0, 0, 0,],
+              [0, 0, 0, 0,],
+              [0, 0, 0, 0,],
+              [0, 0, 0, 0,]]
+
 
 def create_board():
 	board = np.zeros((ROW_COUNT,COLUMN_COUNT))
@@ -68,6 +76,12 @@ def draw_board(board):
 				pygame.draw.circle(screen, YELLOW, (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
 	pygame.display.update()
 
+def check_draw(board):  
+  for i in range(ROW_COUNT):
+    for j in range(COLUMN_COUNT):
+      if board[3][j] != DRAW_COUNT[3][j] :
+        return True 
+
 
 board = create_board()
 print_board(board)
@@ -81,7 +95,8 @@ SQUARESIZE = 100
 width = COLUMN_COUNT * SQUARESIZE
 height = (ROW_COUNT+1) * SQUARESIZE
 
-size = (width, height)
+size = (width+200, height)
+
 
 RADIUS = int(SQUARESIZE/2 - 5)
 
@@ -92,7 +107,7 @@ pygame.display.update()
 myfont = pygame.font.SysFont("monospace", 50)
 
 while not game_over:
-
+	
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			sys.exit()
@@ -122,13 +137,22 @@ while not game_over:
 						label = myfont.render("Player 1 WINS!!", 1, RED)
 						screen.blit(label, (32, 53))
 						game_over = True
+					if  not game_over:
+						for c in range(COLUMN_COUNT-3):
+							for r in range(ROW_COUNT):
+								if r == 3 and board[3][c] != 0 and board[3][c+1] != 0 and board[3][c+2] != 0 and board[3][c+3] != 0:
+									if check_draw(board):
+										label = myfont.render("Draw!!", 1,WHITE)
+										screen.blit(label, (120, 40))
+										print("Draw!")
+										game_over = True
 
+							
 
 			# # Ask for Player 2 Input
 			else:				
 				posx = event.pos[0]
 				col = int(math.floor(posx/SQUARESIZE))
-
 				if is_valid_location(board, col):
 					row = get_next_open_row(board, col)
 					drop_piece(board, row, col, 2)
@@ -137,6 +161,15 @@ while not game_over:
 						label = myfont.render("Player 2 WINS!!", 1, YELLOW)
 						screen.blit(label, (40,10))
 						game_over = True
+					if  not game_over:
+						for c in range(COLUMN_COUNT-3):
+							for r in range(ROW_COUNT):
+								if r == 3 and board[3][c] != 0 and board[3][c+1] != 0 and board[3][c+2] != 0 and board[3][c+3] != 0:
+									if check_draw(board):
+										label = myfont.render("Draw!!", 2,WHITE)
+										screen.blit(label, (120, 40))
+										print("Draw!")
+										game_over = True
 
 			print_board(board)
 			draw_board(board)
