@@ -62,10 +62,7 @@ game_over = False
 turn = 0
 
 while not game_over:
-  if draw == 1:
-    print("Draw!")
-  #Ask for player 1 input
-  elif turn == 0:
+  if turn == 0:
     col = int(input("Player 1: make your selection (0-2):"))
 
     if is_valid_location(board, col):
