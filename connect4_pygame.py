@@ -104,7 +104,7 @@ screen = pygame.display.set_mode(size)
 draw_board(board)
 pygame.display.update()
 
-myfont = pygame.font.SysFont("monospace", 50)
+myfont = pygame.font.SysFont("mvboli", 50)
 
 while not game_over:
 	
