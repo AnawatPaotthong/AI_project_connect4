@@ -297,7 +297,7 @@ while not game_over:
                                 if r == 3 and board[3][c] != 0 and board[3][c+1] != 0 and board[3][c+2] != 0 and board[3][c+3] != 0:
                                     if check_draw(board):
                                         label = myfont.render(
-                                            "Draw!!", 1, WHITE)
+                                            "DRAW!!", 1, WHITE)
                                         screen.blit(label, (120, 40))
                                         print("Draw!")
                                         game_over = True
@@ -313,7 +313,7 @@ while not game_over:
 
         #col = random.randint(0, COLUMN_COUNT-1)
         #col = pick_best_move(board, AI_PIECE)
-        col, minimax_score = minimax(board, 5, -math.inf, math.inf, True)
+        col, minimax_score = minimax(board, 3, -math.inf, math.inf, True)
 
         if is_valid_location(board, col):
             # pygame.time.wait(500)
@@ -329,7 +329,7 @@ while not game_over:
                     for r in range(ROW_COUNT):
                         if r == 3 and board[3][c] != 0 and board[3][c+1] != 0 and board[3][c+2] != 0 and board[3][c+3] != 0:
                             if check_draw(board):
-                                label = myfont.render("Draw!!", 2, WHITE)
+                                label = myfont.render("DRAW!!", 2, WHITE)
                                 screen.blit(label, (120, 40))
                                 print("Draw!")
                                 game_over = True
