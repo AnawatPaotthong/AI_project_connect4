@@ -291,9 +291,9 @@ while not game_over:
                         game_over = True
 
                     if not game_over:
-                        for c in range(COLUMN_COUNT-3):
+                        for c in range(COLUMN_COUNT-6):
                             for r in range(ROW_COUNT):
-                                if r == 3 and board[3][c] != 0 and board[3][c+1] != 0 and board[3][c+2] != 0 and board[3][c+3] != 0:
+                                if  r == 5 and board[5][c] != 0 and board[5][c+1] != 0 and board[5][c+2] != 0 and board[5][c+3] != 0 and board[5][c+4] != 0 and board[5][c+5] != 0 and board[5][c+6] != 0:
                                     if check_draw(board):
                                         label = myfont.render(
                                             "DRAW!!", 1, WHITE)
@@ -324,9 +324,9 @@ while not game_over:
                 screen.blit(label, (75, 10))
                 game_over = True
             if not game_over:
-                for c in range(COLUMN_COUNT-3):
+                for c in range(COLUMN_COUNT-6):
                     for r in range(ROW_COUNT):
-                        if r == 3 and board[3][c] != 0 and board[3][c+1] != 0 and board[3][c+2] != 0 and board[3][c+3] != 0:
+                        if r == 5 and board[5][c] != 0 and board[5][c+1] != 0 and board[5][c+2] != 0 and board[5][c+3] != 0 and board[5][c+4] != 0 and board[5][c+5] != 0 and board[5][c+6] != 0:
                             if check_draw(board):
                                 label = myfont.render("DRAW!!", 2, WHITE)
                                 screen.blit(label, (160, 40))
