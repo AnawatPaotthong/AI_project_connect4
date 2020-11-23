@@ -1,4 +1,3 @@
-
 import numpy as np
 import random
 import pygame
@@ -11,8 +10,8 @@ RED = (255, 0, 0)
 YELLOW = (255, 248, 28)
 WHITE = (255,255,255)
 
-ROW_COUNT = 4
-COLUMN_COUNT = 4
+ROW_COUNT = 6
+COLUMN_COUNT = 7
 
 PLAYER = 0
 AI = 1
@@ -240,7 +239,7 @@ game_over = False
 
 pygame.init()
 
-SQUARESIZE = 150
+SQUARESIZE = 100
 
 width = COLUMN_COUNT * SQUARESIZE
 height = (ROW_COUNT+1) * SQUARESIZE
@@ -288,7 +287,7 @@ while not game_over:
 
                     if winning_move(board, PLAYER_PIECE):
                         label = myfont.render("Player 1 wins!!", 1, RED)
-                        screen.blit(label, (25, 10))
+                        screen.blit(label, (75, 10))
                         game_over = True
 
                     if not game_over:
@@ -298,7 +297,7 @@ while not game_over:
                                     if check_draw(board):
                                         label = myfont.render(
                                             "DRAW!!", 1, WHITE)
-                                        screen.blit(label, (120, 40))
+                                        screen.blit(label, (160, 40))
                                         print("Draw!")
                                         game_over = True
 
@@ -308,12 +307,12 @@ while not game_over:
                     print_board(board)
                     draw_board(board)
 
-    # # Ask for Player 2 Input
+    # # Ask for AI Input
     if turn == AI and not game_over:
 
         #col = random.randint(0, COLUMN_COUNT-1)
         #col = pick_best_move(board, AI_PIECE)
-        col, minimax_score = minimax(board, 3, -math.inf, math.inf, True)
+        col, minimax_score = minimax(board, 5, -math.inf, math.inf, True)
 
         if is_valid_location(board, col):
             # pygame.time.wait(500)
@@ -321,8 +320,8 @@ while not game_over:
             drop_piece(board, row, col, AI_PIECE)
 
             if winning_move(board, AI_PIECE):
-                label = myfont.render("Player 2 wins!!", 1, YELLOW)
-                screen.blit(label, (25, 10))
+                label = myfont.render("AI wins!!", 1, YELLOW)
+                screen.blit(label, (75, 10))
                 game_over = True
             if not game_over:
                 for c in range(COLUMN_COUNT-3):
@@ -330,7 +329,7 @@ while not game_over:
                         if r == 3 and board[3][c] != 0 and board[3][c+1] != 0 and board[3][c+2] != 0 and board[3][c+3] != 0:
                             if check_draw(board):
                                 label = myfont.render("DRAW!!", 2, WHITE)
-                                screen.blit(label, (120, 40))
+                                screen.blit(label, (160, 40))
                                 print("Draw!")
                                 game_over = True
 
