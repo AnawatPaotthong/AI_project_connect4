@@ -4,7 +4,7 @@ import pygame
 import sys
 import math
 
-BLUE = (0, 0, 255)
+BLUE = (48, 71, 94)
 BLACK = (58, 64, 68)
 RED = (255, 0, 0)
 YELLOW = (255, 248, 28)
@@ -314,7 +314,7 @@ while not game_over:
 
         #col = random.randint(0, COLUMN_COUNT-1)
         #col = pick_best_move(board, AI_PIECE)
-        col, minimax_score = minimax(board, 1, -math.inf, math.inf, True)
+        col, minimax_score = minimax(board, 4, -math.inf, math.inf, True)
 
         if is_valid_location(board, col):
             # pygame.time.wait(500)
