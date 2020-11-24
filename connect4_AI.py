@@ -273,6 +273,7 @@ draw_board(board)
 pygame.display.update()
 
 myfont = pygame.font.SysFont("mvboli", 75)
+myfont_status = pygame.font.SysFont("mvboli", 30)
 
 turn = PLAYER #we make the first turn to be the player in every turn
 
@@ -289,12 +290,18 @@ while not game_over:
             if turn == PLAYER:
                 pygame.draw.circle(
                     screen, RED, (posx, int(SQUARESIZE/2)), RADIUS)
+                
 
         pygame.display.update()
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             pygame.draw.rect(screen, BLACK, (0, 0, width, SQUARESIZE))
             if turn == PLAYER:
+                #Add the label that tells the player color and the AI color
+                label_player = myfont_status.render("Player : RED", 1, RED)
+                label_AI = myfont_status.render("AI : YELLOW", 2, YELLOW)
+                screen.blit(label_player, (500, 15))
+                screen.blit(label_AI, (500, 50))
                 posx = event.pos[0]
                 col = int(math.floor(posx/SQUARESIZE))
 
@@ -330,6 +337,12 @@ while not game_over:
                     draw_board(board)
 
     if turn == AI and not game_over:
+
+        #Add the label that tells the player color and the AI color
+        label_player = myfont_status.render("Player : RED", 1, RED)
+        label_AI = myfont_status.render("AI : YELLOW", 2, YELLOW)
+        screen.blit(label_player, (500, 15))
+        screen.blit(label_AI, (500, 50))
 
         col, minimax_score = minimax(board, 5, -math.inf, math.inf, True) 
         # this is the ply we used which is 5 at the second parameter (depth parameter)
