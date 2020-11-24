@@ -4,6 +4,10 @@ import pygame
 import sys
 import math
 
+#our written code have many sections
+#//////////////////////////////////////
+#our code starts here
+
 BLUE = (48, 71, 94)
 BLACK = (58, 64, 68)
 RED = (255, 0, 0)
@@ -20,12 +24,17 @@ EMPTY = 0
 PLAYER_PIECE = 1
 AI_PIECE = 2
 
+#Section 1
+
+#this DRAW_COUNT we made for the draw condition
 DRAW_COUNT = [[0, 0, 0, 0, 0, 0, 0,],
               [0, 0, 0, 0, 0, 0, 0,],
               [0, 0, 0, 0, 0, 0, 0,],
               [0, 0, 0, 0, 0, 0, 0,],
               [0, 0, 0, 0, 0, 0, 0,],
               [0, 0, 0, 0, 0, 0, 0,],]
+#our code end here
+#//////////////////////////////////////
 
 WINDOW_LENGTH = 4
 
@@ -54,25 +63,25 @@ def print_board(board):
 
 
 def winning_move(board, piece):
-    # Check horizontal locations for win
+    # Check for horizontal winning if the pieces connected for 4 row pieces.
     for c in range(COLUMN_COUNT-3):
         for r in range(ROW_COUNT):
             if board[r][c] == piece and board[r][c+1] == piece and board[r][c+2] == piece and board[r][c+3] == piece:
                 return True
 
-    # Check vertical locations for win
+    # Check for vertical winning if the pieces connected for 4 column pieces
     for c in range(COLUMN_COUNT):
         for r in range(ROW_COUNT-3):
             if board[r][c] == piece and board[r+1][c] == piece and board[r+2][c] == piece and board[r+3][c] == piece:
                 return True
 
-    # Check positively sloped diaganols
+    # Check for vertical winning if the pieces connected for 4 positive diagonal pieces
     for c in range(COLUMN_COUNT-3):
         for r in range(ROW_COUNT-3):
             if board[r][c] == piece and board[r+1][c+1] == piece and board[r+2][c+2] == piece and board[r+3][c+3] == piece:
                 return True
 
-    # Check negatively sloped diaganols
+    # Check for vertical winning if the pieces connected for 4 negative diagonal pieces
     for c in range(COLUMN_COUNT-3):
         for r in range(3, ROW_COUNT):
             if board[r][c] == piece and board[r-1][c+1] == piece and board[r-2][c+2] == piece and board[r-3][c+3] == piece:
@@ -137,7 +146,9 @@ def score_position(board, piece):
 def is_terminal_node(board):
     return winning_move(board, PLAYER_PIECE) or winning_move(board, AI_PIECE) or len(get_valid_locations(board)) == 0
 
-
+#//////////////////////////////////////
+#Section 2
+#our code starts here
 def minimax(board, depth, alpha, beta, maximizingPlayer):
     valid_locations = get_valid_locations(board)
     is_terminal = is_terminal_node(board)
@@ -147,11 +158,11 @@ def minimax(board, depth, alpha, beta, maximizingPlayer):
                 return (None, 100000000000000)
             elif winning_move(board, PLAYER_PIECE):
                 return (None, -10000000000000)
-            else:  # Game is over, no more valid moves
+            else:  #When game is over, there will be no more valid moves
                 return (None, 0)
-        else:  # Depth is zero
+        else:  #Depth is zero
             return (None, score_position(board, AI_PIECE))
-    if maximizingPlayer:
+    if maximizingPlayer: #Maximizing player
         value = -math.inf
         column = random.choice(valid_locations)
         for col in valid_locations:
@@ -167,7 +178,7 @@ def minimax(board, depth, alpha, beta, maximizingPlayer):
                 break
         return column, value
 
-    else:  # Minimizing player
+    else:  #Minimizing player
         value = math.inf
         column = random.choice(valid_locations)
         for col in valid_locations:
@@ -182,6 +193,8 @@ def minimax(board, depth, alpha, beta, maximizingPlayer):
             if alpha >= beta:
                 break
         return column, value
+    #our code ends here
+    #//////////////////////////////////////
 
 
 def get_valid_locations(board):
@@ -227,13 +240,18 @@ def draw_board(board):
                     c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
     pygame.display.update()
 
+#//////////////////////////////////////
+#Section 3
+#this function we made will check the draw condition if the player places all pieces to the board
+
 
 def check_draw(board):
     for i in range(ROW_COUNT):
         for j in range(COLUMN_COUNT):
             if board[3][j] != DRAW_COUNT[3][j]:
                 return True
-
+#our code ends here
+#//////////////////////////////////////
 
 board = create_board()
 print_board(board)
@@ -256,9 +274,8 @@ pygame.display.update()
 
 myfont = pygame.font.SysFont("mvboli", 75)
 
-turn = PLAYER
+turn = PLAYER #we make the first turn to be the player in every turn
 
-# random.randint(PLAYER, AI)
 
 while not game_over:
 
@@ -277,8 +294,6 @@ while not game_over:
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             pygame.draw.rect(screen, BLACK, (0, 0, width, SQUARESIZE))
-            # print(event.pos)
-            # Ask for Player 1 Input
             if turn == PLAYER:
                 posx = event.pos[0]
                 col = int(math.floor(posx/SQUARESIZE))
@@ -289,9 +304,12 @@ while not game_over:
 
                     if winning_move(board, PLAYER_PIECE):
                         label = myfont.render("Player Wins!!", 1, RED)
-                        screen.blit(label, (120, 10))
+                        screen.blit(label, (120, 0.5))
                         game_over = True
-
+                    #//////////////////////////////////////
+                    #Section 4
+                    #Draw condtion working section
+                    # this is our code that the draw condition will work.
                     if not game_over:
                         for c in range(COLUMN_COUNT-6):
                             for r in range(ROW_COUNT):
@@ -302,6 +320,8 @@ while not game_over:
                                         screen.blit(label, (170, 10))
                                         print("Draw!")
                                         game_over = True
+                    # this is the end of our code
+                    #//////////////////////////////////////
 
                     turn += 1
                     turn = turn % 2
@@ -309,22 +329,23 @@ while not game_over:
                     print_board(board)
                     draw_board(board)
 
-    # # Ask for AI Input
     if turn == AI and not game_over:
 
-        #col = random.randint(0, COLUMN_COUNT-1)
-        #col = pick_best_move(board, AI_PIECE)
-        col, minimax_score = minimax(board, 4, -math.inf, math.inf, True)
+        col, minimax_score = minimax(board, 5, -math.inf, math.inf, True) 
+        # this is the ply we used which is 5 at the second parameter (depth parameter)
 
         if is_valid_location(board, col):
-            # pygame.time.wait(500)
             row = get_next_open_row(board, col)
             drop_piece(board, row, col, AI_PIECE)
 
             if winning_move(board, AI_PIECE):
-                label = myfont.render("AI wins!!", 1, YELLOW)
+                label = myfont.render("AI Wins!!", 1, YELLOW)
                 screen.blit(label, (170, 10))
                 game_over = True
+            #//////////////////////////////////////
+            #Section 5
+            #Draw condtion working section 
+            # this is our code that the draw condition will work.
             if not game_over:
                 for c in range(COLUMN_COUNT-6):
                     for r in range(ROW_COUNT):
@@ -334,6 +355,8 @@ while not game_over:
                                 screen.blit(label, (170, 10))
                                 print("Draw!")
                                 game_over = True
+            # this is the end of our code
+            #//////////////////////////////////////
 
             print_board(board)
             draw_board(board)
